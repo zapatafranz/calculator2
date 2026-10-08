@@ -1,7 +1,7 @@
 import './App.css'
 import { useState } from 'react'
 
-function CalcDisplay({dispValue}) {
+function CalcDisplay({ dispValue }) {
   return (
     <div className='CalcDisplay'>
       {dispValue}
@@ -9,7 +9,7 @@ function CalcDisplay({dispValue}) {
   )
 }
 
-function CalcButton({label, buttonClassName="CalcButton", onClick}) {
+function CalcButtons({ label, buttonClassName = "CalcButton", onClick }) {
   return (
     <button className={buttonClassName} onClick={onClick}>
       {label}
@@ -19,13 +19,80 @@ function CalcButton({label, buttonClassName="CalcButton", onClick}) {
 
 function App() {
 
-  const[disp, setDisp] = useState(0);
+  const [disp, setDisp] = useState(0);
+  const [num1, setNum1] = useState(null);
+  const [num2, setNum2] = useState(null);
+  const [op, setOp] = useState(null);
 
   const onClickHandler = (e) => {
     e.preventDefault();
-    const value = e.target.innerHTML;
+    const value = e.target.innerHTML
     setDisp(value);
   }
+
+const numClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+    
+    if (op === null) {
+      if (num1 === null) {
+        setNum1(value);
+        setDisp(value);
+      } else {
+        setNum1(num1+value);
+        setDisp(num1+value);
+      }
+    } else {
+      if (num2 === null) {
+        setNum2(value);
+        setDisp(value);
+      } else {
+        setNum2(num2+value);
+        setDisp(num2+value);
+      }
+    }
+    console.log(num1 + "|" + op + "|" + num2 + "|" + disp);
+  }
+
+    const opClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+    setOp(value);
+    setDisp(value);
+  }
+
+  const eqClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+
+    if (op === "+") {
+      setDisp(parseInt(num1) + parseInt(num2)); 
+    } else if (op === "-") {
+      setDisp(parseInt(num1) - parseInt(num2)); 
+    } else if (op === "*") {
+      setDisp(parseInt(num1) * parseInt(num2)); 
+    } else if (op === "÷") {
+      setDisp(parseInt(num1) / parseInt(num2)); 
+    }
+    
+  }
+
+  const clrClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+    setNum1(null);
+    setNum2(null);
+    setOp(null);
+    setDisp(0);
+  }
+
+  const surnameClickHandler = (e) => {
+  e.preventDefault();
+  setDisp("Francine Zapata");
+  setNum1(null);
+  setNum2(null);
+  setOp(null);
+};
 
   return (
     <div className='App'>
@@ -33,25 +100,25 @@ function App() {
         Calculator of Francine Zapata - DA3A
       </div>
       <div className='Calculator'>
-        <CalcDisplay dispValue = {disp}/>
+        <CalcDisplay dispValue={disp} />
         <div className='CalcButtons'>
-          <CalcButton label={'7'} onClick={onClickHandler}/>
-          <CalcButton label={'8'} onClick={onClickHandler}/>
-          <CalcButton label={'9'} onClick={onClickHandler}/>
-          <CalcButton label={'+'} onClick={onClickHandler}/>
-          <CalcButton label={'4'} onClick={onClickHandler}/>
-          <CalcButton label={'5'} onClick={onClickHandler}/>
-          <CalcButton label={'6'} onClick={onClickHandler}/>
-          <CalcButton label={'X'} onClick={onClickHandler}/>
-          <CalcButton label={'1'} onClick={onClickHandler}/>
-          <CalcButton label={'2'} onClick={onClickHandler}/>
-          <CalcButton label={'3'} onClick={onClickHandler}/>
-          <CalcButton label={'-'} onClick={onClickHandler}/>
-          <CalcButton label={'CLR'} buttonClassName={"ClearButton"} onClick={onClickHandler}/>
-          <CalcButton label={'0'} onClick={onClickHandler}/>
-          <CalcButton label={'='} onClick={onClickHandler}/>
-          <CalcButton label={'/'} onClick={onClickHandler}/>
-
+          <CalcButtons label={'7'} onClick={numClickHandler} />
+          <CalcButtons label={'8'} onClick={numClickHandler} />
+          <CalcButtons label={'9'} onClick={numClickHandler} />
+          <CalcButtons label={'÷'} onClick={opClickHandler} />
+          <CalcButtons label={'4'} onClick={numClickHandler} />
+          <CalcButtons label={'5'} onClick={numClickHandler} />
+          <CalcButtons label={'6'} onClick={numClickHandler} />
+          <CalcButtons label={'*'} onClick={opClickHandler} />
+          <CalcButtons label={'1'} onClick={numClickHandler} />
+          <CalcButtons label={'2'} onClick={numClickHandler} />
+          <CalcButtons label={'3'} onClick={numClickHandler} />
+          <CalcButtons label={'-'} onClick={opClickHandler} />
+          <CalcButtons label={'C'} buttonClassName="ClearButton" onClick={clrClickHandler}/>
+          <CalcButtons label={'0'} onClick={numClickHandler} />
+          <CalcButtons label={'='} onClick={eqClickHandler} />
+          <CalcButtons label={'+'} onClick={opClickHandler} />
+          <CalcButtons label={'ZAPATA'} buttonClassName="SurnameButton" onClick={surnameClickHandler} />
         </div>
       </div>
     </div>
