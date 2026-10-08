@@ -5,15 +5,15 @@ body {
   padding: 0;
   background-color: #d8f3dc;
   background-image: 
-    linear-gradient(#b7e4c7 1px, transparent 1px),
-    linear-gradient(90deg, #b7e4c7 1px, transparent 1px);
-  background-size: 24px 24px;
+    radial-gradient(#ffb6c1 20%, transparent 20%),
+    radial-gradient(#ffb6c1 20%, transparent 20%);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
   font-family: 'VT323', monospace;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  
 }
 
 .App {
@@ -67,15 +67,18 @@ body {
   border: 3.5px solid #1a1a1a;
   border-radius: 14px;
   color: #1a1a1a;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   padding: 8px 16px;
   margin-top: 14px;
   margin-bottom: 18px;
   box-shadow: inset 3px 3px 0px rgba(0, 0, 0, 0.15);
-  word-wrap: break-word;
-  word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   min-height: 44px;
 }
 
@@ -114,7 +117,7 @@ body {
     0px 1px 0px #1a1a1a;
 }
 
-/* CLR Button (Red/Pink Accent) */
+/* Clear Button Accent */
 .CalcButtons .CalcButton:nth-child(13) {
   background-color: #ff4d8d;
   color: #ffffff;
@@ -128,9 +131,11 @@ body {
   background-color: #ff669d;
 }
 
-.CalcButtons .CalcButton:nth-child(4),  
-.CalcButtons .CalcButton:nth-child(15), 
-.CalcButtons .CalcButton:nth-child(16)  / {
+/* Right-side Operator Buttons */
+.CalcButtons .CalcButton:nth-child(4),
+.CalcButtons .CalcButton:nth-child(8),
+.CalcButtons .CalcButton:nth-child(12),
+.CalcButtons .CalcButton:nth-child(16) {
   background-color: #a7f3d0;
   color: #1a1a1a;
   box-shadow: 
@@ -140,7 +145,8 @@ body {
 }
 
 .CalcButtons .CalcButton:nth-child(4):hover,
-.CalcButtons .CalcButton:nth-child(15):hover,
+.CalcButtons .CalcButton:nth-child(8):hover,
+.CalcButtons .CalcButton:nth-child(12):hover,
 .CalcButtons .CalcButton:nth-child(16):hover {
   background-color: #c6f6d5;
 }
@@ -157,11 +163,31 @@ body {
 .ClearButton:hover {
   background-color: #ff669d !important;
 }
+
 .SurnameButton {
   grid-column: span 4;
   background-color: #ffb6c1;
+  color: #1a1a1a;
+  border: 3px solid #1a1a1a;
+  font-family: 'VT323', monospace;
+  font-size: 1.5rem;
   font-weight: bold;
-  border-radius: 8px;
+  border-radius: 14px;
   padding: 10px;
   cursor: pointer;
+  box-shadow: 
+    inset -3px -3px 0px #ff85a1,
+    inset 2px 2px 0px #ffffff,
+    0px 4px 0px #1a1a1a;
+}
+
+.SurnameButton:hover {
+  background-color: #ffc2d1;
+}
+
+.SurnameButton:active {
+  transform: translateY(3px);
+  box-shadow: 
+    inset -2px -2px 0px #ff85a1,
+    0px 1px 0px #1a1a1a;
 }
